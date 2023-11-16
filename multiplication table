@@ -1,0 +1,163 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Color;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.GridLayout;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class MyMultiplicationTable extends JFrame implements ActionListener {
+
+	private static final long serialVersionUID = 1L;
+	boolean oClicked=false;
+	JPanel mainPanel;
+	JPanel Qpanel;
+	JButton[] numButton=new JButton[14];
+	Font Myfont=new Font("Arial",Font.PLAIN,15);
+	JTextField timesTextField;
+	JTextArea outputTextArea;
+	JButton okButton;
+	JLabel tableLabel;
+	int getValue,timesValue;
+	JTextField countField;
+	public MyMultiplicationTable() {
+		setTitle("Multiplication Table - D&D solutions");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 600,450);
+		mainPanel = new JPanel();
+		mainPanel.setToolTipText(" ");
+		mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(mainPanel);
+		mainPanel.setLayout(null);
+		
+		JLabel qAccLabel = new JLabel("Quick Access");
+		qAccLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		qAccLabel.setForeground(SystemColor.activeCaptionText);
+		qAccLabel.setBackground(new Color(99, 179, 235));
+		qAccLabel.setBounds(105, 22, 116, 29);
+		mainPanel.add(qAccLabel);
+		
+		Qpanel = new JPanel();
+		Qpanel.setBackground(new Color(119, 136, 153));
+		Qpanel.setBounds(17, 63, 300, 200);
+		mainPanel.add(Qpanel);
+		Qpanel.setLayout(new GridLayout(4,4,10,10));
+		
+		for(int i=0;i<=12;i++) {
+			numButton[i]=new JButton(String.valueOf(i));
+			numButton[i].addActionListener(this);
+			numButton[i].setSize(10, 10);
+			numButton[i].setFont(Myfont);
+			numButton[i].setFocusable(false);
+		}
+		 Qpanel.add(numButton[1]);
+		 Qpanel.add(numButton[2]);
+		 Qpanel.add(numButton[3]);		 
+		 Qpanel.add(numButton[4]);
+		 Qpanel.add(numButton[5]);
+		 Qpanel.add(numButton[6]);		 
+		 Qpanel.add(numButton[7]);
+		 Qpanel.add(numButton[8]);
+		 Qpanel.add(numButton[9]);		 
+		 Qpanel.add(numButton[10]);
+		 Qpanel.add(numButton[11]);
+		 Qpanel.add(numButton[12]);
+		 
+		 outputTextArea = new JTextArea();
+		 outputTextArea.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		 outputTextArea.setBackground(new Color(255, 228, 225));
+		 outputTextArea.setEditable(false);
+		 outputTextArea.setBounds(350, 63, 231, 336);
+		 mainPanel.add(outputTextArea);
+		 
+		 tableLabel = new JLabel("TIMES TABLE No.");
+		 tableLabel.setBounds(375, 28, 123, 16); 
+		 mainPanel.add(tableLabel);
+		 
+		 timesTextField = new JTextField();
+		 timesTextField.setBounds(212, 292, 81, 26);
+		 mainPanel.add(timesTextField);
+		 timesTextField.setColumns(10);
+		 timesTextField.addActionListener(this);
+		 
+		 okButton = new JButton("OK");
+		 okButton.setBounds(194, 330, 117, 29);
+		 okButton.addActionListener(this);
+		 mainPanel.add(okButton);
+		 
+		 JLabel timesLabel = new JLabel("Enter the Times");
+		 timesLabel.setBackground(new Color(255, 218, 185));
+		 timesLabel.setBounds(82, 297, 104, 16);
+		 mainPanel.add(timesLabel);
+		 
+		 JButton clearButton = new JButton("Clear");
+		 clearButton.setFocusable(true);
+		 clearButton.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+		 		outputTextArea.setText("");
+		 		timesTextField.setText("");
+		 		countField.setText("");
+		 		
+		 	}
+		 });
+		 clearButton.setBounds(194, 371, 117, 29);
+		 mainPanel.add(clearButton);
+		 
+		 countField = new JTextField();
+		 countField.setBackground(SystemColor.window);
+		 countField.setEditable(false);
+		 countField.setBounds(483, 23, 50, 25);
+		 mainPanel.add(countField);
+		 countField.setColumns(10);
+	}	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+			for(int i=0;i<=12;i++) {
+			 if (e.getSource()==numButton[i]) {
+			 int getValue=Integer.parseInt(numButton[i].getText());
+			 int m=Integer.parseInt(numButton[i].getText()); 
+			 outputTextArea.setText("");
+		 		
+		 		countField.setText("");
+			 for (int a=1;a<=10;a++){
+				 m=getValue*a;	
+			 outputTextArea.append("" +"  "+a+ " x " +getValue+ " = " +m+"\n");
+			countField.setText(numButton[i].getText());
+				 } }}
+			 if(e.getSource()==okButton) {
+				 int timesValue=Integer.parseInt(timesTextField.getText());
+				 int m=Integer.parseInt(timesTextField.getText()); 
+				 countField.setText(timesTextField.getText());
+				 outputTextArea.setText("");
+			 		timesTextField.setText("");	
+				 for (int b=1;b<=10;b++){
+					 m=timesValue*b;	
+				 outputTextArea.append("" +"  "+b+ "x" +timesValue+ "=" +m+"\n");
+					
+		 }
+			}
+			 }
+		public static void main(String[] args) {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						MyMultiplicationTable frame = new MyMultiplicationTable();
+						frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+		}
+	}
