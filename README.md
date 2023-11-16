@@ -1,2 +1,2 @@
 # multiTimesTable
-yOu CaN 5 Digit times table here
+yOu CaN easily see 5 Digit times table here
